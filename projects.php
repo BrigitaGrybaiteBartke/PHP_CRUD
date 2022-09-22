@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,8 @@
 </head>
 
 <body>
-    <?php require_once "header.php"; ?>
+    <?php session_start();
+    require_once "header.php"; ?>
 
     <?php
     // connection to server
@@ -22,14 +23,23 @@
     $result = $mysqli->query("SELECT * FROM projects") or die($mysqli->error);
     ?>
 
+    <?php if (isset($_SESSION['message'])) : ?>
+        <div class="alert alert-<?php echo $_SESSION['msg_type'] ?>">
+            <?php echo $_SESSION['message'];
+            unset($_SESSION['message']) ?>
+        </div>
+    <?php endif ?>
+
     <div class="container">
-        <div class="mt-5">
+        <div>
+            <h3 class="text-center my-4">Project management system</h3>
+        </div>
+        <div class="mt-5 mb-3">
             <a href="newproject.php" class="btn btn-primary">Add new Project</a>
         </div>
         <div>
-            <div>
-                <h3 class="text-center mt-3 mb-4">Project management system</h3>
-            </div>
+
+
             <table class="table table-hover table-bordered shadow p-3 mb-3 bg-body rounded">
                 <tr class="table-secondary">
                     <th>Id</th>
@@ -38,11 +48,11 @@
                 </tr>
                 <?php if (mysqli_num_rows($result) > 0) while ($row = $result->fetch_assoc()) : ?>
                     <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo $row['projectname']; ?></td>
+                        <td><?php echo $row['id'] ?></td>
+                        <td><?php echo $row['projectname'] ?></td>
                         <td>
-                            <a href="" class="btn btn-info">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="" class="btn btn-outline-primary">Edit</a>
+                            <a href="delete.php?delete=<?php echo $row['id'] ?>" class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>
                 <?php endwhile;  ?>
