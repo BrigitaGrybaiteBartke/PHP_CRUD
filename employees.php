@@ -79,13 +79,6 @@
         </table>
     </div>
 
-    <?php
-
-    $sql = "SELECT * FROM crud";
-    $result = mysqli_query($con, $sql);
-
-    // pasileisti cikla, kad gauti duomenis
-    ?>
 
 </body>
 
