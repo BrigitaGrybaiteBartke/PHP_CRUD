@@ -1,16 +1,15 @@
 <?php
-
 session_start();
+require_once "connect.php";
 
-// echo "<pre>";
-// var_dump($_GET['delete'])
-
-// connection to server
-$mysqli = new mysqli('localhost', 'root', '', 'crud') or die(mysqli_error($mysqli));
-
-if(isset($_GET['delete'])) {
+// Project delete logic
+if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    $mysqli -> query("DELETE FROM projects WHERE id=$id") or die($mysqli_error($mysqli));
+    $stmt = $mysqli->prepare("DELETE FROM projects WHERE id=?") or die($mysqli_error($mysqli));
+    $stmt->bind_param('i', $id);
+    $id = $_GET['delete'];
+    $stmt->execute();
+    $stmt->close();
 
     $_SESSION['message'] = "Project has been deleted!";
     $_SESSION['msg_type'] = "danger";
@@ -18,4 +17,18 @@ if(isset($_GET['delete'])) {
     header("Location: projects.php");
 }
 
-?>
+
+// Employee delete logic
+if (isset($_GET['deleteempl'])) {
+    $id = $_GET['deleteempl'];
+    $stmt = $mysqli->prepare("DELETE FROM employees WHERE id=?") or die($mysqli_error($mysqli));
+    $stmt->bind_param('i', $id);
+    $id = $_GET['deleteempl'];
+    $stmt->execute();
+    $stmt->close();
+
+    $_SESSION['message'] = "Employee has been deleted!";
+    $_SESSION['msg_type'] = "danger";
+
+    header("Location: employees.php");
+}
