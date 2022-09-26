@@ -1,3 +1,8 @@
+<?php
+session_start();
+require_once "connect.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,16 +18,19 @@
 </head>
 
 <body>
-    <?php session_start();
-    require_once "header.php"; ?>
+    <?php require_once "header.php"; ?>
 
     <?php
-    // connection to server
-    $mysqli = new mysqli('localhost', 'root', '', 'crud') or die(mysqli_error($mysqli));
     // selection
-    $result = $mysqli->query("SELECT * FROM projects") or die($mysqli->error);
+    $result = $mysqli->query("SELECT projects.id, projectname, group_concat(name SEPARATOR ' / ') as names FROM projects
+                                LEFT JOIN employees
+                                    ON projects.id = employees.project_id
+                                GROUP BY projectname
+                                ORDER BY id ")
+        or die($mysqli->error);
     ?>
 
+    <!-- create / delete / update message -->
     <?php if (isset($_SESSION['message'])) : ?>
         <div class="alert alert-<?php echo $_SESSION['msg_type'] ?>">
             <?php echo $_SESSION['message'];
@@ -44,14 +52,16 @@
                 <tr class="table-secondary">
                     <th>Id</th>
                     <th>Project Name</th>
+                    <th>Employees</th>
                     <th>Action</th>
                 </tr>
-                <?php if (mysqli_num_rows($result) > 0) while ($row = $result->fetch_assoc()) : ?>
+                <?php if ($result->num_rows > 0) while ($row = $result->fetch_assoc()) : ?>
                     <tr>
                         <td><?php echo $row['id'] ?></td>
                         <td><?php echo $row['projectname'] ?></td>
+                        <td><?php echo $row['names'] ?></td>
                         <td>
-                            <a href="" class="btn btn-outline-primary">Edit</a>
+                            <a href="updatePro.php?updatePro=<?php echo $row['id'] ?>" class="btn btn-outline-primary">Update</a>
                             <a href="delete.php?delete=<?php echo $row['id'] ?>" class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>
