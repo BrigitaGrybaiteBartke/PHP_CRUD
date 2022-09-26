@@ -1,44 +1,43 @@
 <?php
 session_start();
-    require_once "connect.php";
+require_once "connect.php";
 
-    $idEmpl = $_GET['updateEmpl'];
-    $result = $mysqli->query("SELECT * FROM employees WHERE id=\"$idEmpl\"") or die($mysqli->error);
-    $row = $result->fetch_assoc();
-    $id = $row['id'];
-    $name = $row['name'];
-    $email = $row['email'];
-    $project_id = $row['project_id'];
+$idEmpl = $_GET['updateEmpl'];
+$result = $mysqli->query("SELECT * FROM employees WHERE id=\"$idEmpl\"") or die($mysqli->error);
+$row = $result->fetch_assoc();
+$id = $row['id'];
+$name = $row['name'];
+$email = $row['email'];
+$project_id = $row['project_id'];
 
-    
-    if(isset($_POST['update'])) {
-        if(!empty($_POST['name']) and !empty($_POST['email'])) {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            
-            $chooseProject = $_POST['chooseProject'];
 
-            if($chooseProject != NULL) {
-                $stmt = $mysqli->prepare("UPDATE employees SET name=?, email=?, project_id=? WHERE id=?");
-                $stmt->bind_param('ssii', $name, $email, $chooseProject, $idEmpl);
-            } else {
-                $stmt = $mysqli->prepare("UPDATE employees SET name=?, email=? WHERE id=?");
-                $stmt->bind_param('ssi', $name, $email, $idEmpl);
-            }
+if (isset($_POST['update'])) {
+    if (!empty($_POST['name']) and !empty($_POST['email'])) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
 
-            $stmt->execute();
-            $stmt->close();
-            $_SESSION['message'] = "Employee data has been updated!";
-            $_SESSION['msg_type'] = "warning";
+        $chooseProject = $_POST['chooseProject'];
 
-            header("Location: employees.php");
-
+        if ($chooseProject != NULL) {
+            $stmt = $mysqli->prepare("UPDATE employees SET name=?, email=?, project_id=? WHERE id=?");
+            $stmt->bind_param('ssii', $name, $email, $chooseProject, $idEmpl);
         } else {
-            echo "Input fields are empty";
+            $stmt = $mysqli->prepare("UPDATE employees SET name=?, email=? WHERE id=?");
+            $stmt->bind_param('ssi', $name, $email, $idEmpl);
         }
+
+        $stmt->execute();
+        $stmt->close();
+        $_SESSION['message'] = "Employee data has been updated!";
+        $_SESSION['msg_type'] = "warning";
+
+        header("Location: employees.php");
+    } else {
+        echo "Input fields are empty";
     }
-    
-    
+}
+
+
 ?>
 
 
