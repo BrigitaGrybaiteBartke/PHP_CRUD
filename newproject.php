@@ -7,9 +7,8 @@ if (isset($_POST['submit'])) {
         $projectname = $_POST['projectName'];
         $chooseEmpl = $_POST['chooseEmpl'];
 
-        if(isset($chooseEmpl) != NULL) {
+        if (isset($chooseEmpl) != NULL) {
             $stmt = $mysqli->prepare("INSERT INTO projects(projectname) VALUES (?)");
-
         }
 
         $stmt = $mysqli->prepare("INSERT INTO projects(projectname) VALUES (?)");
@@ -73,22 +72,6 @@ if (isset($_POST['submit'])) {
                     <label for="projectName" class="form-label">Project</label>
                     <input type="text" name="projectName" placeholder="Enter new project name" class="form-control">
                 </div>
-                <!-- selection -->
-                <!-- <div class="my-3 width">
-                    <select name="chooseEmpl">
-                        <option value="" selected>Choose Employee</option>
-                        <?php
-                        $result = $mysqli->query("SELECT name, id FROM employees") or die($mysqli->error);
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {  ?>
-                                <option value="<?php echo $row['id'], $row['name'] ?>"><?php echo $row['name']; ?></option>
-                        <?php }
-                        } ?>
-                    </select>
-                    <span>*optional</span>
-                </div> -->
-
-
                 <div>
                     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </div>
