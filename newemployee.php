@@ -1,24 +1,42 @@
 <?php
 
 require_once "connect.php";
+session_start();
 
 // create new employee
 if (isset($_POST['submit'])) {
     if (!empty($_POST['name']) and !empty($_POST['email'])) {
         $name = $_POST['name'];
         $email = $_POST['email'];
-        $chooseProject = $_POST['chooseProject'];
 
-        $stmt = $mysqli->prepare("INSERT INTO employees(name, email, project_id) VALUES(?, ?, ?)");
-        $stmt->bind_param('ssi', $name, $email, $chooseProject);
+        $chooseProject = $_POST['chooseProject'];
+        
+        if($chooseProject != NULL) {
+            $stmt = $mysqli->prepare("INSERT INTO employees(name, email, project_id) VALUES(?, ?, ?)");
+            $stmt->bind_param('ssi', $name, $email, $chooseProject);
+        } else {
+            $stmt = $mysqli->prepare("INSERT INTO employees(name, email) VALUES(?, ?)");
+            $stmt->bind_param('ss', $name, $email);
+        }
+        
+       
         $stmt->execute();
         $stmt->close();
+
+        $_SESSION['message'] = "New employee has been saved!";
+        $_SESSION['msg_type'] = "success";
 
         header("Location: employees.php");
     } else {
         echo "Input fields are empty";
     }
 }
+
+// jeigu projekto id yra ne null
+// paruosti uzklausa su mysql irasant kad butu pridetas ir projekto id
+// uzbaindinti projekto id
+
+
 
 ?>
 
@@ -34,7 +52,7 @@ if (isset($_POST['submit'])) {
     <!-- Bootstrap  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
-
+    
     <style>
         .width {
             width: 300px;
@@ -58,16 +76,15 @@ if (isset($_POST['submit'])) {
                 <input type="text" name="email" placeholder="Enter employee email address" class="form-control width">
             </div>
             <div class="my-3 width">
-                <!-- selection -->
+                <!-- <label for="chooseProject">Choose Project (optional)</label> -->
                 <select name="chooseProject">
                     <option value="" selected>Choose Project</option>
-                    <?php
-                    $result = $mysqli->query("SELECT projectname, id FROM projects") or die($mysqli->error);
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {  ?>
-                            <option value="<?php echo $row['id'], $row['projectname'] ?>"><?php echo $row['projectname']; ?></option>
-                    <?php }
-                    } ?>
+                    <?php 
+                        $result = $mysqli->query("SELECT projectname, id FROM projects") or die($mysqli->error);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {  ?>
+                      <option value="<?php echo $row['id'], $row['projectname'] ?>"><?php echo $row['projectname']; ?></option>
+                    <?php }} ?>        
                 </select>
                 <span>*optional</span>
 
