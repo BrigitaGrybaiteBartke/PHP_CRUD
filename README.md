@@ -36,6 +36,6 @@
 * Home page: ***http://localhost/*** "ENTER created folder name here"
 
 ## Author
-Project is created by Brigita Grybaitė-Bartkė
+App is created by Brigita Grybaitė-Bartkė
 [Github](https://github.com/BrigitaGrybaiteBartke)
 [Linkedin](https://www.linkedin.com/in/brigita-grybait%C4%97-bartk%C4%97-487403112/)
