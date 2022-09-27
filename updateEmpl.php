@@ -61,33 +61,40 @@ if (isset($_POST['update'])) {
     <?php endif ?>
 
     <div class="container">
-        <form action="" method="POST">
-            <div class="my-3 width">
-                <label for="name" class="form-label">Employee's Name</label>
-                <input value="<?php echo $name ?>" type="text" name="name" placeholder="Enter employee name" class="form-control width">
-            </div>
-            <div class="my-3 width">
-                <label for="email" class="form-label">Email</label>
-                <input value="<?php echo $email ?>" type="text" name="email" placeholder="Enter employee email address" class="form-control width">
-            </div>
-            <div class="my-3 width">
-                <select name="chooseProject">
-                    <option value="" selected>Choose Project</option>
-                    <?php
-                    $result = $mysqli->query("SELECT projectname, id FROM projects") or die($mysqli->error);
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {  ?>
-                            <option value="<?php echo $row['id'], $row['projectname'] ?>"><?php echo $row['projectname']; ?></option>
-                    <?php }
-                    } ?>
-                </select>
-                <span>*optional</span>
-            </div>
-            <div>
-                <button type="submit" name="update" class="btn btn-primary">Update</button>
-            </div>
-        </form>
+        <div class="text-center mt-5">
+            <h3>Update Employee data</h3>
+        </div>
+        <div class="mt-5">
+            <form action="" method="POST">
+                <div class="my-3 width">
+                    <label for="name" class="form-label">Employee's Name</label>
+                    <input value="<?php echo $name ?>" type="text" name="name" placeholder="Enter employee name" class="form-control width">
+                </div>
+                <div class="my-3 width">
+                    <label for="email" class="form-label">Email</label>
+                    <input value="<?php echo $email ?>" type="text" name="email" placeholder="Enter employee email address" class="form-control width">
+                </div>
+                <div class="my-3 width">
+                    <select name="chooseProject">
+                        <option value="" selected>Choose Project</option>
+                        <?php
+                        $result = $mysqli->query("SELECT projectname, id FROM projects") or die($mysqli->error);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {  ?>
+                                <option value="<?php echo $row['id'], $row['projectname'] ?>"><?php echo $row['projectname']; ?></option>
+                        <?php }
+                        } ?>
+                    </select>
+                    <span>*optional</span>
+                </div>
+                <div>
+                    <button type="submit" name="update" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <?php require_once "./app/footer.php" ?>
 
 </body>
 

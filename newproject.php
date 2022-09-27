@@ -61,6 +61,8 @@ if (isset($_POST['submit'])) {
             </form>
         </div>
     </div>
+    
+    <?php require_once "./app/footer.php" ?>
 
 </body>
 

@@ -51,7 +51,7 @@ if (isset($_POST['update'])) {
 
     <div class="container">
         <div class="text-center mt-5">
-            <h3>Update Project name</h3>
+            <h3>Update Project</h3>
         </div>
         <div class="mt-5">
             <form action="" method="POST">
