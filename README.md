@@ -1,6 +1,6 @@
 # CRUD app
 
-*A simple CRUD application with basic functionality*
+*A simple application with basic CRUD functionality*
 
 ## About
 
@@ -9,15 +9,14 @@
 * PHP
 * MySQL Workbench
 * CSS Framework Bootstrap
-* raw CSS
-
+* CSS
 
 #### App allows users to:
-* Create new project
-* Create new employee records
-* Delete project without deleting assigned employees
-* Delete employee without deleting assigned project
-* Update projects and  emoloyees records
+* Create a new project
+* Create a new employee data
+* Delete a project without deleting assigned employees
+* Delete an employee without deleting assigned project
+* Update project and  emoloyees data
 
 ## Getting Started
 * Clone directory: https://github.com/BrigitaGrybaiteBartke/PHP_CRUD.git
