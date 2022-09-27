@@ -11,7 +11,7 @@
 <?php require_once "./app/nav.php"; ?>
 
     <div class="text-center">
-        <img src="./assets/images/crud.png">
+        <img src="./app/images/crud.png">
     </div>
 
     <?php require_once "./app/footer.php" ?>

@@ -3,26 +3,27 @@ session_start();
 require_once "./app/connect.php";
 ?>
 
+<?php
+$result = $mysqli->query("SELECT * FROM projects
+                                RIGHT JOIN employees
+                                    ON projects.id = employees.project_id
+                            ") or die($mysqli->error);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php require_once "./app/head.php" ?>
+
     <title>Employees</title>
 
     <?php require_once "./app/style.php" ?>
 </head>
 
 <body>
-
     <?php require_once "./app/nav.php"; ?>
-
-    <?php
-    $result = $mysqli->query("SELECT * FROM projects
-                                RIGHT JOIN employees
-                                    ON projects.id = employees.project_id
-                            ") or die($mysqli->error);
-    ?>
 
     <!-- create / delete / update message -->
     <?php if (isset($_SESSION['message'])) : ?>
@@ -57,7 +58,6 @@ require_once "./app/connect.php";
                         <td>
                             <a href="updateEmpl.php?updateEmpl=<?php echo $row['id'] ?>" class="btn btn-outline-primary">Update</a>
                             <a href="delete.php?deleteempl=<?php echo $row['id'] ?>" class="btn btn-outline-danger">Delete</a>
-
                         </td>
                     </tr>
                 <?php endwhile; ?>

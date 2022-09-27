@@ -4,15 +4,15 @@
         <section class="mb-2">
             <!-- Linkedin -->
             <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://www.linkedin.com/in/brigita-grybait%C4%97-bartk%C4%97-487403112" role="button" data-mdb-ripple-color="dark">
-                <img src="./assets/images/in.png" alt="linkedin" style="width: 30px">
+                <img src="./app/images/in.png" alt="linkedin" style="width: 30px">
             </a>
             <!-- Github -->
             <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://github.com/BrigitaGrybaiteBartke" role="button" data-mdb-ripple-color="dark">
-                <img src="./assets/images/git.png" alt="github" style="width: 30px">
+                <img src="./app/images/git.png" alt="github" style="width: 30px">
             </a>
             <!-- Gmail -->
             <a class="btn btn-link btn-floating btn-lg text-dark m-1" role="button" data-mdb-ripple-color="dark" href="mailto:brigita.grybaite@gmail.com">
-                <img src="./assets/images/mail.png" alt="github" style="width: 30px">
+                <img src="./app/images/mail.png" alt="github" style="width: 30px">
             </a>
         </section>
         <!-- Copyright -->

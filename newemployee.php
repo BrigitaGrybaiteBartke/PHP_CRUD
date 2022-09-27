@@ -7,15 +7,15 @@ if (isset($_POST['submit'])) {
         $name = $_POST['name'];
         $email = $_POST['email'];
         $chooseProject = $_POST['chooseProject'];
-        
-        if($chooseProject != NULL) {
+
+        if ($chooseProject != NULL) {
             $stmt = $mysqli->prepare("INSERT INTO employees(name, email, project_id) VALUES(?, ?, ?)");
             $stmt->bind_param('ssi', $name, $email, $chooseProject);
         } else {
             $stmt = $mysqli->prepare("INSERT INTO employees(name, email) VALUES(?, ?)");
             $stmt->bind_param('ss', $name, $email);
         }
-        
+
         $stmt->execute();
         $stmt->close();
 
@@ -28,28 +28,29 @@ if (isset($_POST['submit'])) {
         $_SESSION['msg_type'] = "danger";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<?php require_once "./app/head.php" ?>
+    <?php require_once "./app/head.php" ?>
+
     <title>Create new employee</title>
-    
+
     <?php require_once "./app/style.php" ?>
+</head>
 
-<?php require_once "./app/nav.php"; ?>
+<body>
+    <?php require_once "./app/nav.php"; ?>
 
-<!-- Empty input field message -->
-<?php if (isset($_POST['submit']) and empty($_POST['name']) and empty($_POST['email'])) : ?>
+    <!-- Empty input field message -->
+    <?php if (isset($_POST['submit']) and empty($_POST['name']) and empty($_POST['email'])) : ?>
         <div class="alert alert-<?php echo $_SESSION['msg_type'] ?>">
             <?php echo $_SESSION['message'];
             unset($_SESSION['message']) ?>
         </div>
     <?php endif ?>
-
 
     <div class="container">
         <form action="newemployee.php" method="POST">
@@ -64,12 +65,13 @@ if (isset($_POST['submit'])) {
             <div class="my-3 width">
                 <select name="chooseProject">
                     <option value="" selected>Choose Project</option>
-                    <?php 
-                        $result = $mysqli->query("SELECT DISTINCT projectname, id FROM projects") or die($mysqli->error);
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {  ?>
-                      <option value="<?php echo $row['id'], $row['projectname'] ?>"><?php echo $row['projectname']; ?></option>
-                    <?php }} ?>        
+                    <?php
+                    $result = $mysqli->query("SELECT DISTINCT projectname, id FROM projects") or die($mysqli->error);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {  ?>
+                            <option value="<?php echo $row['id'], $row['projectname'] ?>"><?php echo $row['projectname']; ?></option>
+                    <?php }
+                    } ?>
                 </select>
                 <span>*optional</span>
             </div>
@@ -80,4 +82,5 @@ if (isset($_POST['submit'])) {
     </div>
 
 </body>
+
 </html>

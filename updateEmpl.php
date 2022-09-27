@@ -10,7 +10,6 @@ $name = $row['name'];
 $email = $row['email'];
 $project_id = $row['project_id'];
 
-
 if (isset($_POST['update'])) {
     if (!empty($_POST['name']) and !empty($_POST['email'])) {
         $name = $_POST['name'];
@@ -39,7 +38,6 @@ if (isset($_POST['update'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,8 +50,15 @@ if (isset($_POST['update'])) {
 </head>
 
 <body>
-
     <?php require_once "./app/nav.php"; ?>
+
+    <!-- Empty input field message -->
+    <?php if (isset($_POST['update']) and empty($_POST['name']) and empty($_POST['email'])) : ?>
+        <div class="alert alert-<?php echo $_SESSION['msg_type'] ?>">
+            <?php echo $_SESSION['message'];
+            unset($_SESSION['message']) ?>
+        </div>
+    <?php endif ?>
 
     <div class="container">
         <form action="" method="POST">

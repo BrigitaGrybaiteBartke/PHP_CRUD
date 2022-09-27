@@ -39,9 +39,9 @@ if (isset($_POST['update'])) {
 </head>
 
 <body>
-
     <?php require_once "./app/nav.php"; ?>
 
+        <!-- Empty input field message -->
     <?php if (isset($_POST['update']) and empty($_POST['projectName'])) : ?>
         <div class="alert alert-<?php echo $_SESSION['msg_type'] ?>">
             <?php echo $_SESSION['message'];

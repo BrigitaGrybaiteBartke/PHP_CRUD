@@ -5,7 +5,7 @@ require_once "./app/connect.php";
 if (isset($_POST['submit'])) {
     if (!empty($_POST['projectName'])) {
         $projectname = $_POST['projectName'];
-        
+
         $stmt = $mysqli->prepare("INSERT INTO projects(projectname) VALUES (?)");
         $stmt->bind_param('s', $projectname);
         $stmt->execute();
@@ -27,24 +27,23 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
-<?php require_once "./app/head.php" ?>
+    <?php require_once "./app/head.php" ?>
+
     <title>Create new Project</title>
 
     <?php require_once "./app/style.php" ?>
 </head>
 
 <body>
+    <?php require_once "./app/nav.php"; ?>
 
-<?php require_once "./app/nav.php"; ?>
-
-<!-- Empty input field message -->
+    <!-- Empty input field message -->
     <?php if (isset($_POST['submit']) and empty($_POST['projectName'])) : ?>
         <div class="alert alert-<?php echo $_SESSION['msg_type'] ?>">
             <?php echo $_SESSION['message'];
             unset($_SESSION['message']) ?>
         </div>
     <?php endif ?>
-
 
     <div class="container">
         <div class="text-center mt-5">
@@ -64,4 +63,5 @@ if (isset($_POST['submit'])) {
     </div>
 
 </body>
+
 </html>

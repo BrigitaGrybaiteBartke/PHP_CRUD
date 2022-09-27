@@ -4,13 +4,13 @@ require_once "./app/connect.php";
 ?>
 
 <?php
-    $result = $mysqli->query("SELECT projects.id, projectname, group_concat(name SEPARATOR ' / ') as names FROM projects
+$result = $mysqli->query("SELECT projects.id, projectname, group_concat(name SEPARATOR ' / ') as names FROM projects
                                 LEFT JOIN employees
                                     ON projects.id = employees.project_id
                                 GROUP BY projectname
                                 ORDER BY id ")
-        or die($mysqli->error);
-    ?>
+    or die($mysqli->error);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@ require_once "./app/connect.php";
     <?php require_once "./app/head.php" ?>
 
     <title>Projects</title>
-    
+
     <?php require_once "./app/style.php" ?>
 </head>
 
@@ -67,4 +67,5 @@ require_once "./app/connect.php";
     <?php require_once "./app/footer.php" ?>
 
 </body>
+
 </html>
