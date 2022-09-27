@@ -2,7 +2,10 @@
 
 *A simple application with basic CRUD functionality*
 
+### Application screenshots
+#### CRUD Projects
 ![projects screenshot](./app/images/projects.png "This is a project view screenshot")
+#### CRUD Employees
 ![employees screenshot](./app/images/employees.png "This is a employees view screenshot")
 
 ## About
