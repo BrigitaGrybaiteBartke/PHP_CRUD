@@ -1,16 +1,11 @@
 <?php
-require_once "connect.php";
 session_start();
+require_once "./app/connect.php";
 
 if (isset($_POST['submit'])) {
     if (!empty($_POST['projectName'])) {
         $projectname = $_POST['projectName'];
-        $chooseEmpl = $_POST['chooseEmpl'];
-
-        if (isset($chooseEmpl) != NULL) {
-            $stmt = $mysqli->prepare("INSERT INTO projects(projectname) VALUES (?)");
-        }
-
+        
         $stmt = $mysqli->prepare("INSERT INTO projects(projectname) VALUES (?)");
         $stmt->bind_param('s', $projectname);
         $stmt->execute();
@@ -28,39 +23,28 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Project</title>
+<?php require_once "./app/head.php" ?>
+    <title>Create new Project</title>
 
-    <!-- Bootstrap  -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
-    <style>
-        .width {
-            width: 300px;
-        }
-    </style>
-
+    <?php require_once "./app/style.php" ?>
 </head>
 
 <body>
 
-    <?php require_once "header.php" ?>
+<?php require_once "./app/nav.php"; ?>
 
+<!-- Empty input field message -->
     <?php if (isset($_POST['submit']) and empty($_POST['projectName'])) : ?>
         <div class="alert alert-<?php echo $_SESSION['msg_type'] ?>">
             <?php echo $_SESSION['message'];
             unset($_SESSION['message']) ?>
         </div>
     <?php endif ?>
+
 
     <div class="container">
         <div class="text-center mt-5">
@@ -79,7 +63,5 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 
-
 </body>
-
 </html>

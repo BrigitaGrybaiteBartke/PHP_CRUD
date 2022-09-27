@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "connect.php";
+require_once "./app/connect.php";
 
 $idEmpl = $_GET['updateEmpl'];
 $result = $mysqli->query("SELECT * FROM employees WHERE id=\"$idEmpl\"") or die($mysqli->error);
@@ -15,7 +15,6 @@ if (isset($_POST['update'])) {
     if (!empty($_POST['name']) and !empty($_POST['email'])) {
         $name = $_POST['name'];
         $email = $_POST['email'];
-
         $chooseProject = $_POST['chooseProject'];
 
         if ($chooseProject != NULL) {
@@ -28,16 +27,16 @@ if (isset($_POST['update'])) {
 
         $stmt->execute();
         $stmt->close();
+
         $_SESSION['message'] = "Employee data has been updated!";
         $_SESSION['msg_type'] = "warning";
 
         header("Location: employees.php");
     } else {
-        echo "Input fields are empty";
+        $_SESSION['message'] = "Empty input field!";
+        $_SESSION['msg_type'] = "danger";
     }
 }
-
-
 ?>
 
 
@@ -45,27 +44,17 @@ if (isset($_POST['update'])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <?php require_once "./app/head.php" ?>
 
-    <!-- Bootstrap  -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Update employee</title>
 
-
-    <style>
-        .width {
-            width: 300px;
-        }
-    </style>
-
+    <?php require_once "./app/style.php" ?>
 </head>
 
 <body>
 
-    <?php require_once "header.php"; ?>
-    <!-- forma -->
+    <?php require_once "./app/nav.php"; ?>
+
     <div class="container">
         <form action="" method="POST">
             <div class="my-3 width">
@@ -77,7 +66,6 @@ if (isset($_POST['update'])) {
                 <input value="<?php echo $email ?>" type="text" name="email" placeholder="Enter employee email address" class="form-control width">
             </div>
             <div class="my-3 width">
-                <!-- selection -->
                 <select name="chooseProject">
                     <option value="" selected>Choose Project</option>
                     <?php
@@ -89,14 +77,12 @@ if (isset($_POST['update'])) {
                     } ?>
                 </select>
                 <span>*optional</span>
-
             </div>
             <div>
                 <button type="submit" name="update" class="btn btn-primary">Update</button>
             </div>
         </form>
     </div>
-
 
 </body>
 

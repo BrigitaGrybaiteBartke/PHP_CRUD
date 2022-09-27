@@ -1,14 +1,11 @@
 <?php
-
-require_once "connect.php";
 session_start();
+require_once "./app/connect.php";
 
-// create new employee
 if (isset($_POST['submit'])) {
     if (!empty($_POST['name']) and !empty($_POST['email'])) {
         $name = $_POST['name'];
         $email = $_POST['email'];
-
         $chooseProject = $_POST['chooseProject'];
         
         if($chooseProject != NULL) {
@@ -19,7 +16,6 @@ if (isset($_POST['submit'])) {
             $stmt->bind_param('ss', $name, $email);
         }
         
-       
         $stmt->execute();
         $stmt->close();
 
@@ -28,15 +24,10 @@ if (isset($_POST['submit'])) {
 
         header("Location: employees.php");
     } else {
-        echo "Input fields are empty";
+        $_SESSION['message'] = "Empty input field!";
+        $_SESSION['msg_type'] = "danger";
     }
 }
-
-// jeigu projekto id yra ne null
-// paruosti uzklausa su mysql irasant kad butu pridetas ir projekto id
-// uzbaindinti projekto id
-
-
 
 ?>
 
@@ -44,27 +35,22 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <!-- Bootstrap  -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
+<?php require_once "./app/head.php" ?>
+    <title>Create new employee</title>
     
-    <style>
-        .width {
-            width: 300px;
-        }
-    </style>
+    <?php require_once "./app/style.php" ?>
 
-</head>
+<?php require_once "./app/nav.php"; ?>
 
-<body>
+<!-- Empty input field message -->
+<?php if (isset($_POST['submit']) and empty($_POST['name']) and empty($_POST['email'])) : ?>
+        <div class="alert alert-<?php echo $_SESSION['msg_type'] ?>">
+            <?php echo $_SESSION['message'];
+            unset($_SESSION['message']) ?>
+        </div>
+    <?php endif ?>
 
-    <?php require_once "header.php"; ?>
-    <!-- forma -->
+
     <div class="container">
         <form action="newemployee.php" method="POST">
             <div class="my-3 width">
@@ -76,18 +62,16 @@ if (isset($_POST['submit'])) {
                 <input type="text" name="email" placeholder="Enter employee email address" class="form-control width">
             </div>
             <div class="my-3 width">
-                <!-- <label for="chooseProject">Choose Project (optional)</label> -->
                 <select name="chooseProject">
                     <option value="" selected>Choose Project</option>
                     <?php 
-                        $result = $mysqli->query("SELECT projectname, id FROM projects") or die($mysqli->error);
+                        $result = $mysqli->query("SELECT DISTINCT projectname, id FROM projects") or die($mysqli->error);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {  ?>
                       <option value="<?php echo $row['id'], $row['projectname'] ?>"><?php echo $row['projectname']; ?></option>
                     <?php }} ?>        
                 </select>
                 <span>*optional</span>
-
             </div>
             <div>
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
@@ -95,7 +79,5 @@ if (isset($_POST['submit'])) {
         </form>
     </div>
 
-
 </body>
-
 </html>

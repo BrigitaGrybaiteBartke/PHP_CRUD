@@ -1,8 +1,7 @@
 <?php
 session_start();
-require_once "connect.php";
+require_once "./app/connect.php";
 
-// update logic
 $id = $_GET['updatePro'];
 $result = $mysqli->query("SELECT * FROM projects WHERE id=\"$id\"") or die($mysqli->error);
 $row = $result->fetch_assoc();
@@ -26,35 +25,22 @@ if (isset($_POST['update'])) {
         $_SESSION['msg_type'] = "danger";
     }
 }
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <?php require_once "./app/head.php" ?>
 
-    <!-- Bootstrap  -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Update Project</title>
 
-    <style>
-        .width {
-            width: 300px;
-        }
-    </style>
-
-
+    <?php require_once "./app/style.php" ?>
 </head>
 
 <body>
 
-    <?php require_once "header.php" ?>
+    <?php require_once "./app/nav.php"; ?>
 
     <?php if (isset($_POST['update']) and empty($_POST['projectName'])) : ?>
         <div class="alert alert-<?php echo $_SESSION['msg_type'] ?>">
@@ -79,7 +65,6 @@ if (isset($_POST['update'])) {
             </form>
         </div>
     </div>
-
 
 </body>
 

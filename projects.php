@@ -1,27 +1,9 @@
 <?php
 session_start();
-require_once "connect.php";
+require_once "./app/connect.php";
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
-
-    <!-- Bootstrap  -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
-</head>
-
-<body>
-    <?php require_once "header.php"; ?>
-
-    <?php
-    // selection
+<?php
     $result = $mysqli->query("SELECT projects.id, projectname, group_concat(name SEPARATOR ' / ') as names FROM projects
                                 LEFT JOIN employees
                                     ON projects.id = employees.project_id
@@ -29,6 +11,20 @@ require_once "connect.php";
                                 ORDER BY id ")
         or die($mysqli->error);
     ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <?php require_once "./app/head.php" ?>
+
+    <title>Projects</title>
+    
+    <?php require_once "./app/style.php" ?>
+</head>
+
+<body>
+    <?php require_once "./app/nav.php"; ?>
 
     <!-- create / delete / update message -->
     <?php if (isset($_SESSION['message'])) : ?>
@@ -40,14 +36,12 @@ require_once "connect.php";
 
     <div class="container">
         <div>
-            <h3 class="text-center my-4">Project management system</h3>
+            <h3 class="text-center my-4">CRUD Projects</h3>
         </div>
         <div class="mt-5 mb-3">
             <a href="newproject.php" class="btn btn-primary">Add new Project</a>
         </div>
         <div>
-
-
             <table class="table table-hover table-bordered shadow p-3 mb-3 bg-body rounded">
                 <tr class="table-secondary">
                     <th>Id</th>
@@ -70,6 +64,7 @@ require_once "connect.php";
         </div>
     </div>
 
-</body>
+    <?php require_once "./app/footer.php" ?>
 
+</body>
 </html>
