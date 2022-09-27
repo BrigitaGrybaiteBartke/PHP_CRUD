@@ -4,7 +4,7 @@
 
 ## Application screenshots
 ![projects screenshot](./app/images/projects.png "This is a project view screenshot")
-![employees screenshot](./app/images/employees.png "This is a employees view screenshot")
+![create new employee screenshot](./app/images/newEmpl.png "This is a create new employee view screenshot")
 
 ## About
 
