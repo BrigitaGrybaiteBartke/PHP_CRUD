@@ -2,6 +2,9 @@
 
 *A simple application with basic CRUD functionality*
 
+![projects screenshot](./app/images/projects.png "This is a project view screenshot")
+![employees screenshot](./app/images/employees.png "This is a employees view screenshot")
+
 ## About
 
 #### App is created with:
