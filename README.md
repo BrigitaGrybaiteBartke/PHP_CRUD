@@ -1,6 +1,6 @@
 # CRUD app
 
-*A simple application with basic CRUD functionality*.
+A simple application with basic CRUD functionality.
 
 ## Application screenshots
 ![projects screenshot](./app/images/projects.png "This is a project view screenshot")
@@ -23,7 +23,10 @@
 * Update project and  emoloyees data
 
 ## Getting Started
-* Clone directory: https://github.com/BrigitaGrybaiteBartke/PHP_CRUD.git
+* Clone directory:
+```
+git clone https://github.com/BrigitaGrybaiteBartke/PHP_CRUD.git
+```
 * Run XAMPP and start Apache Server and Mysql database
 * Open XAMPP htdocs folder - clone application code to this folder
 * Create connection on MySQL Workbench:
@@ -41,6 +44,7 @@
 
 
 ## Author
-App is created by Brigita Grybaitė-Bartkė
-[Github](https://github.com/BrigitaGrybaiteBartke)
+App is created by Brigita Grybaitė-Bartkė,
+
+[Github](https://github.com/BrigitaGrybaiteBartke),
 [Linkedin](https://www.linkedin.com/in/brigita-grybait%C4%97-bartk%C4%97-487403112/)
